@@ -12,20 +12,38 @@ class Evaluator:
         for i in range(3):
             for j in range(3):
                 if(int(puzzle[i * 3 + j]) != 0 and (int(puzzle[i * 3 + j]) - 1)//3 == i):
-                    for k in range(j + 1, 3):
-                        if((int(puzzle[i * 3 + k]) - 1) == i and int(puzzle[i * 3 + j]) > int(puzzle[i * 3 + k])):
+                    k = j + 1
+                    while k < 3:
+                        if(int(puzzle[i * 3 + k]) != 0 and (int(puzzle[i * 3 + k]) - 1)//3 == i and int(puzzle[i * 3 + j]) > int(puzzle[i * 3 + k])):
+                            puzzle = self._reverte_conflito_linear(puzzle, i*3 + j, i*3 + k)
                             conflicts += 1
+                        else:
+                            k += 1
         return conflicts
+    
+    def _reverte_conflito_linear(self, puzzle, left_pos, right_pos):
+        return puzzle[0:left_pos] + puzzle[right_pos] + puzzle[left_pos] + puzzle[left_pos + 1 : right_pos] + puzzle[right_pos + 1:]
     
     def conflito_colunar(self, puzzle):
         conflicts = 0 
         for j in range(3):
             for i in range(3):
                 if(int(puzzle[i * 3 + j]) != 0 and (int(puzzle[i * 3 + j]) - 1)%3 == j):
-                    for k in range(i + 1, 3):
-                        if((int(puzzle[k * 3 + j]) - 1) == j and int(puzzle[i * 3 + j]) > int(puzzle[k * 3 + j])):
+                    k = i + 1
+                    while k < 3:
+                        if(int(puzzle[k * 3 + j]) != 0 and (int(puzzle[k * 3 + j]) - 1)%3 == j and int(puzzle[i * 3 + j]) > int(puzzle[k * 3 + j])):
                             conflicts += 1
+                            puzzle = self._reverte_conflito_colunar(puzzle, i * 3 + j, k * 3 + j)
+                        else:
+                            k += 1
         return conflicts
+    
+    def _reverte_conflito_colunar(self, puzzle, up_pos, down_pos):
+        distance = down_pos - up_pos
+        if (distance == 3):
+            return puzzle[0:up_pos] + puzzle[down_pos] + puzzle[up_pos + 1: down_pos] + puzzle[up_pos] + puzzle[down_pos + 1: ]
+        elif(distance == 6):
+            return puzzle[0:up_pos] + puzzle[down_pos] + puzzle[up_pos + 1: up_pos + 3] + puzzle[up_pos] + puzzle[up_pos + 4: down_pos] + puzzle[up_pos + 3] + puzzle[down_pos + 1 :]
     
     def min_dist_error(self, empty_pos: int, incorrect_positions: list):
         if(len(incorrect_positions) == 0):
@@ -53,7 +71,7 @@ class Evaluator:
                     cost += 1
         return cost
 
-    # Distância dos blocos de sua linha e coluna correta + 2 . (número de conflitos lineares)
+    # Distância dos blocos de sua linha e coluna correta
     def h_a_simple(self, puzzle):
         cost = 0
         for i in range(3):
@@ -118,7 +136,7 @@ class Evaluator:
         cost += max(self.max_dist_error(empty_pos, incorrect) - 1, 0)
         return cost
 
-    # Distância dos blocos de sua linha e coluna correta + 2 . (número de conflitos lineares) + (Distância máxima entre o bloco vazio e um bloco em posição incorreta - 1) 
+    # Distância dos blocos de sua linha e coluna correta + 2 . (número de conflitos lineares) + 2 . (número de conflitos colunares)
     def h_a4(self, puzzle):
         cost = 0
         for i in range(3):
