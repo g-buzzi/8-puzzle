@@ -15,7 +15,7 @@ class Evaluator:
                     k = j + 1
                     while k < 3:
                         if(int(puzzle[i * 3 + k]) != 0 and (int(puzzle[i * 3 + k]) - 1)//3 == i and int(puzzle[i * 3 + j]) > int(puzzle[i * 3 + k])):
-                            puzzle = self.reserse_linear_conflict(puzzle, i*3 + j, i*3 + k)
+                            puzzle = self.reserse_linear_conflict(puzzle, i * 3 + j, i * 3 + k)
                             conflicts += 1
                         else:
                             k += 1
@@ -67,7 +67,7 @@ class Evaluator:
                 number = int(puzzle[i * 3 + j])
                 if number == 0:
                     continue
-                if number - 1 != i*3 + j:
+                if number - 1 != i * 3 + j:
                     cost += 1
         return cost
 
@@ -79,7 +79,7 @@ class Evaluator:
                 number = int(puzzle[i * 3 + j])
                 if number == 0:
                     continue
-                cost += self.distance(i*3 + j, number - 1)
+                cost += self.distance(i * 3 + j, number - 1)
         return cost
     
     # Distância dos blocos de sua linha e coluna correta + 2 . (número de conflitos lineares)
@@ -90,7 +90,7 @@ class Evaluator:
                 number = int(puzzle[i * 3 + j])
                 if number == 0:
                     continue
-                cost += self.distance(i*3 + j, number - 1)
+                cost += self.distance(i * 3 + j, number - 1)
         cost += self.linear_conflict(puzzle) * 2
         return cost
     

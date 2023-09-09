@@ -1,6 +1,7 @@
 from evaluator import Evaluator
 from frontier import Frontier
 from node import Node
+from time import time
 
 def A_star(puzzle, algorithm):
     evaluator = Evaluator()
@@ -14,6 +15,8 @@ def A_star(puzzle, algorithm):
     frontier = Frontier()
     frontier.insert(Node(puzzle, 0, heuristic(puzzle), ''))
     visited = dict()
+
+    t0 = time()
     while(True):
         node = frontier.pop()
         visited[node.puzzle] = True
@@ -23,9 +26,11 @@ def A_star(puzzle, algorithm):
         for derivation in derivations:
             if(derivation.puzzle not in visited):
                 frontier.insert(derivation)
+    t1 = time()
     print("Resultado: " + node.puzzle)
     print("Passos: " + node.steps)
     print("Número de passos: " + str(len(node.steps)))
     print("Tamanho da fronteira: " + str(frontier.size))
     print("Número de visitados: " + str(len(visited)))
+    print("Tempo total:", t1 - t0)
             
