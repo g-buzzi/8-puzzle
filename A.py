@@ -28,11 +28,4 @@ def A_star(puzzle, algorithm):
     print("Número de passos: " + str(len(node.steps)))
     print("Tamanho da fronteira: " + str(frontier.size))
     print("Número de visitados: " + str(len(visited)))
-
-puzzle = input("Digite o puzzle: ")
-print()
-algorithm = int(input("Escolha o algoritmo:\n0 - A* com heurística simples\n1 - A* com heurística precisa\n2 - Custo uniforme\n\n"))
-#puzzle = "123456708"
-A_star(puzzle, algorithm)
-
             

@@ -8,7 +8,7 @@ class Frontier:
         if(element.puzzle in self.__in_frontier):
             if(element.total_cost >= self.__in_frontier[element.puzzle]):
                 return
-            remove = True #Estamos assumindo que o custo só aumenta
+            remove = True # Estamos assumindo que o custo só aumenta
         self.__in_frontier[element.puzzle] = element.total_cost
         for i in range(len(self.__frontier)):
             if(element.total_cost < self.__frontier[i].total_cost):
