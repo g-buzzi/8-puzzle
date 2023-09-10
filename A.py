@@ -27,10 +27,11 @@ def A_star(puzzle, algorithm):
             if(derivation.puzzle not in visited):
                 frontier.insert(derivation)
     t1 = time()
+    
     print("Resultado: " + node.puzzle)
     print("Passos: " + node.steps)
     print("Número de passos: " + str(len(node.steps)))
     print("Tamanho da fronteira: " + str(frontier.size))
     print("Número de visitados: " + str(len(visited)))
-    print("Tempo total:", t1 - t0)
+    print("Tempo total:", round(t1 - t0, 4))
             
