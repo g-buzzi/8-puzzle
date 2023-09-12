@@ -111,7 +111,6 @@ class Evaluator:
                 if distancia > 0:
                     incorrect.append(pos)
         cost += self.linear_conflict(puzzle) * 2
-        print("Min_dist: " + str(self.min_dist_error(empty_pos, incorrect)))
         cost += 2 * max(self.min_dist_error(empty_pos, incorrect) - 1, 0)
         return cost
     
@@ -132,7 +131,6 @@ class Evaluator:
                 if distancia > 0:
                     incorrect.append(pos)
         cost += self.linear_conflict(puzzle) * 2
-        print("Max_dist: " + str(self.min_dist_error(empty_pos, incorrect)))
         cost += max(self.max_dist_error(empty_pos, incorrect) - 1, 0)
         return cost
 
