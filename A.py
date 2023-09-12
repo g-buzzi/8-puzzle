@@ -13,10 +13,10 @@ def A_star(puzzle, algorithm):
         case _:
             heuristic = lambda x:0
     frontier = Frontier()
-    frontier.insert(Node(puzzle, 0, heuristic(puzzle), ''))
     visited = dict()
 
     t0 = time()
+    frontier.insert(Node(puzzle, 0, heuristic(puzzle), ''))
     while(True):
         node = frontier.pop()
         visited[node.puzzle] = True
