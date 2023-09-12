@@ -2,10 +2,10 @@ import math
 
 class Evaluator:
     def __init__(self):
-        self.__size = 3
+        pass
 
     def distance(self, pos_1, pos_2):
-        return abs((pos_1 % self.__size) - (pos_2 % self.__size)) + abs((pos_1 // self.__size) - (pos_2 // self.__size))
+        return abs((pos_1 % 3) - (pos_2 % 3)) + abs((pos_1 // 3) - (pos_2 // 3))
     
     def linear_conflict(self, puzzle):
         conflicts = 0 
